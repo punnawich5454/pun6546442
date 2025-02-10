@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>ระบบจัดการฐานข้อมูล</title>
+    <script>
+        async function select_table(event) {
+            event.preventDefault();
+            const database = document.getElementById("database").value;
+            const table = document.getElementById("table").value;
+            const url = `http://localhost:8000/selectdb/${database}/${table}`;
+            const response = await fetch(url);
+            const data = await response.json();
+
+            let tabledata = "<table border = '1'><tr>"
+            Object.keys(data.select_data[0]).forEach(key => {
+                tabledata += `<th>${key}</th>`;
+            });
+            tabledata += "</tr>"
+            
+            data.select_data.forEach(row => {
+                tabledata += '<tr>';
+                Object.values(row).forEach(value => {
+                    tabledata += `<td>${value}</td>`;
+                });
+                tabledata += '</tr>'
+            });
+            document.getElementById("tabledata").innerHTML = tabledata;
+        };
+    </script>
+</head>
+<body>
+    <header>
+        <a href="select.html">ดูข้อมูล</a>
+        <a href="delete.html">ลบข้อมูล</a>
+        <a href="edit.html">แก้ไขข้อมูล</a>
+        <a href="insert.html">เพิ่มข้อมูล</a>
+    </header>
+    <section>
+        <h1>ดูข้อมูลในตาราง</h1>
+        <form onsubmit="select_table(event)">
+            <label for="database">ชื่อ database</label>
+            <input type="text" id="database" name="database">
+            <label for="table">ชื่อตาราง</label>
+            <select name="table" id="table">
+                <option value="users">users</option>
+                <option value="products">products</option>
+                <option value="categories">categories</option>
+                <option value="orders">orders</option>
+            </select>
+            <button type="submit">ดูข้อมูล</button>
+        </form>
+        <p>แสดงข้อมูล</p>
+        <div id="tabledata"></div>
+    </section>
+</body>
+</html>

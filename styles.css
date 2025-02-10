@@ -1,0 +1,89 @@
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box  ;
+}
+
+body {
+    background-image: url(/Rectangle\ 5\ copy.png);
+    background-position: center;
+    background-size: cover;
+}
+
+header {
+    background-color: rgb(60, 235, 209);
+    text-align: center;
+    padding: 20px;
+    a {
+        padding: 10px 10px;
+        color: black;
+        text-decoration: none;
+    }
+    a:hover {
+        background-color: rgb(65, 162, 162);
+    }
+}
+
+nav {
+    display: flex;
+    background-color: aquamarine;
+    padding: 10px;
+    gap: 20px;
+    a {
+        color: black;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+form {
+    background-color: aqua;
+    padding: 30px;
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+input, select {
+    height: 30px;
+    padding: 0 10px;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+}
+button {
+    background-color: rgb(236, 64, 64);
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+}
+
+#tabledata {
+    min-height: 0px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 20px;
+    table {
+        width: 100%;
+    }
+    th {
+        padding: 10px;
+    }
+    td {
+        padding: 0 10px;
+    }
+}

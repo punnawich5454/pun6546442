@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>ระบบจัดการฐานข้อมูล</title>
+    <script>
+        async function insert_users(event) {
+            event.preventDefault();
+            const database = document.getElementById("database").value;
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const email = document.getElementById("email").value;
+            const user_role = document.getElementById("user_role").value;
+            const url = `http://localhost:8000/insert_users/${database}/${username}/${password}/${email}/${user_role}`;
+            const response = await fetch(url);
+            const data = await response.json();
+
+            let tabledata = document.getElementById("tabledata");
+            if(response.ok) {
+                tabledata.innerHTML = 'เพิ่มข้อมูลสำเร็จ';
+            } else {
+                tabledata.innerHTML = 'ไม่สามารถเพิ่มข้อมูลได้';
+            }
+        };
+    </script>
+</head>
+<body>
+    <header>
+        <a href="select.html">ดูข้อมูล</a>
+        <a href="delete.html">ลบข้อมูล</a>
+        <a href="edit.html">แก้ไขข้อมูล</a>
+        <a href="insert.html">เพิ่มข้อมูล</a>
+    </header>
+    <nav>
+        <a href="insert.html">เพิ่มข้อมูลผู้ใช้</a>
+        <a href="insert_products.html">เพิ่มสินค้า</a>
+        <a href="insert_categories.html">เพิ่มหมวดหมู่</a>
+        <a href="insert_orders.html">เพิ่มคำสั่งซื้อ</a>
+    </nav>
+    <section>
+        <h1>เพิ่มข้อมูลในตาราง</h1>
+        <h4>เพิ่มข้อมูลผู้ใช้</h4>
+        <form onsubmit="insert_users(event)">
+            <label for="database">ชื่อ database</label>
+            <input type="text" id="database" name="database">
+            <label for="username">ชื่อผู้ใช้</label>
+            <input type="text" name="username" id="username">
+            <label for="password">รหัสผ่าน</label>
+            <input type="text" name="password" id="password">
+            <label for="email">อีเมล</label>
+            <input type="email" name="email" id="email">
+            <label for="user_role">ตำแหน่ง</label>
+            <select name="user_role" id="user_role">
+                <option value="1">customer</option>
+                <option value="2">admin</option>
+            </select>
+            <button type="submit">เพิ่มข้อข้อมูล</button>
+        </form>
+        <p>แสดงข้อมูล</p>
+        <div id="tabledata"></div>
+    </section>
+</body>
+</html>

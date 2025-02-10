@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>ระบบจัดการฐานข้อมูล</title>
+    <script>
+        async function edit_table(event) {
+            event.preventDefault();
+            const database = document.getElementById("database").value;
+            const table = document.getElementById("table").value;
+            const column = document.getElementById("column").value;
+            const id_name = document.getElementById("id_name").value;
+            const id = document.getElementById("id").value;
+            const val = document.getElementById("val").value;
+            const url = `http://localhost:8000/editdb/${database}/${table}/${column}/${id_name}/${id}/${val}`;
+            const response = await fetch(url);
+            const data = await response.json();
+
+            let tabledata = document.getElementById("tabledata");
+            if(response.ok) {
+                tabledata.innerHTML = 'แก้ไขข้อมูลสำเร็จ';
+            }else {
+                tabledata.innerHTML = `ไม่สามารถแก้ไขข้อมูลได้`;
+            }
+                };
+    </script>
+</head>
+<body>
+    <header>
+        <a href="select.html">ดูข้อมูล</a>
+        <a href="delete.html">ลบข้อมูล</a>
+        <a href="edit.html">แก้ไขข้อมูล</a>
+        <a href="insert.html">เพิ่มข้อมูล</a>
+    </header>
+    <section>
+        <h1>แก้ไขข้อมูลในตาราง</h1>
+        <form onsubmit="edit_table(event)">
+            <label for="database">ชื่อ database</label>
+            <input type="text" id="database" name="database">
+            <label for="table">ชื่อตาราง</label>
+            <select name="table" id="table">
+                <option value="users">users</option>
+                <option value="products">products</option>
+                <option value="categories">categories</option>
+                <option value="orders">orders</option>
+            </select>
+            <label for="column">คอลัม</label>
+            <input type="text" id="column" name="column">
+            <label for="id_name">ชื่อ id</label>
+            <input type="text" id="id_name" name="id_name">
+            <label for="id">เลข id</label>
+            <input type="text" id="id" name="id">
+            <label for="val">ใส่ค่า</label>
+            <input type="text" id="val" name="val">
+            <button type="submit">ดูข้อมูล</button>
+        </form>
+        <p>แสดงข้อมูล</p>
+        <div id="tabledata"></div>
+    </section>
+</body>
+</html>
